@@ -19,9 +19,21 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
+
+  //class ChangeURL {
+
+  //}
 }
 
 class _HomePageState extends State<HomePage> {
+  var imageUrl;
+  void loadNewImage() {
+    setState(() {
+      imageUrl =
+          'https://picsum.photos/300?random=${DateTime.now().millisecondsSinceEpoch}';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +42,26 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.cyanAccent,
         centerTitle: true,
       ),
-      body: Center(child: Image.network('https://picsum.photos/300/200')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: .center,
+          children: [
+            if (imageUrl != null)
+              Image.network(
+                imageUrl!,
+                width: 300,
+                height: 300,
+                fit: BoxFit.cover,
+              ),
+            const SizedBox(height: 20),
+
+            TextButton(
+              onPressed: loadNewImage,
+              child: const Text('Neues Bild'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
