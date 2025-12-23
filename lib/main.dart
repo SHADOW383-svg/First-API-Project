@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,8 +27,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var imageUrl;
-  void loadNewImage() {
+  String? imageUrl;
+  Future<void> loadNewImage() async {
+    await Future.delayed(const Duration(seconds: 5));
     setState(() {
       imageUrl =
           'https://picsum.photos/300?random=${DateTime.now().millisecondsSinceEpoch}';
@@ -53,7 +55,6 @@ class _HomePageState extends State<HomePage> {
                 height: 300,
                 fit: BoxFit.cover,
               ),
-            const SizedBox(height: 20),
 
             TextButton(
               onPressed: loadNewImage,
