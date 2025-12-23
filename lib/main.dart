@@ -28,11 +28,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? imageUrl;
+  bool isLoading = false;
+
   Future<void> loadNewImage() async {
-    await Future.delayed(const Duration(seconds: 5));
+    setState(() {
+      isLoading = true;
+      imageUrl = null;
+    });
+
+    await Future.delayed(const Duration(seconds: 3));
+
     setState(() {
       imageUrl =
           'https://picsum.photos/300?random=${DateTime.now().millisecondsSinceEpoch}';
+      isLoading = false;
     });
   }
 
@@ -48,7 +57,9 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            if (imageUrl != null)
+            if (isLoading == true)
+              const CircularProgressIndicator()
+            else if (imageUrl != null)
               Image.network(
                 imageUrl!,
                 width: 300,
