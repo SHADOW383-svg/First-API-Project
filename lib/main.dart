@@ -20,10 +20,6 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
-
-  //class ChangeURL {
-
-  //}
 }
 
 class _HomePageState extends State<HomePage> {
@@ -68,8 +64,15 @@ class _HomePageState extends State<HomePage> {
               ),
 
             TextButton(
-              onPressed: loadNewImage,
-              child: const Text('Neues Bild'),
+              onPressed: isLoading ? null : loadNewImage,
+              child: Column(
+                children: [
+                  if (isLoading == true)
+                    const Text("Lade Bild")
+                  else if (isLoading == false)
+                    const Text("Klicke für ein neues Bild"),
+                ],
+              ),
             ),
           ],
         ),
